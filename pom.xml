@@ -15,11 +15,11 @@
 
   <repositories>
     <repository>
-      <id>github</id>
-      <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/Sm0keySa1m0n/</url>
+      <id>sm0keysa1m0n-snapshots</id>
+      <name>Sa1m0n's Repository</name>
+      <url>https://maven.tarbits.co.uk/snapshots/</url>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -84,12 +84,12 @@
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-	  <!-- Auth0 JWT -->
-	  <dependency>
-	    <groupId>com.auth0</groupId>
-	    <artifactId>java-jwt</artifactId>
-	    <version>${java-jwt.version}</version>
-	  </dependency>
+      <!-- Auth0 JWT -->
+      <dependency>
+        <groupId>com.auth0</groupId>
+        <artifactId>java-jwt</artifactId>
+        <version>${java-jwt.version}</version>
+      </dependency>
       <!-- Jackson -->
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
