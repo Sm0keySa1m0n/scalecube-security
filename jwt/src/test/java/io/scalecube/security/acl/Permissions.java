@@ -1,13 +1,12 @@
 package io.scalecube.security.acl;
 
-import io.scalecube.security.api.Authorizer;
-import io.scalecube.security.api.Profile;
-import java.security.AccessControlException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import io.scalecube.security.api.Authorizer;
+import io.scalecube.security.api.Profile;
 import reactor.core.publisher.Mono;
 
 /**
@@ -77,6 +76,6 @@ public class Permissions implements Authorizer {
   public Mono<Profile> authorize(Profile profile, String resource) {
     return Mono.just(profile)
         .filter(p -> isInRole(p, rolesByResource(rolesForAllResources, resource)))
-        .switchIfEmpty(Mono.error(() -> new AccessControlException("Permission denied")));
+        .switchIfEmpty(Mono.error(() -> new AuthorizationException("Permission denied")));
   }
 }

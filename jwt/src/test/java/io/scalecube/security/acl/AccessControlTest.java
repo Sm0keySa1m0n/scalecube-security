@@ -1,17 +1,16 @@
 package io.scalecube.security.acl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import io.jsonwebtoken.Jwts;
-import io.scalecube.security.api.Authenticator;
-import io.scalecube.security.jwt.DefaultJwtAuthenticator;
-import java.security.AccessControlException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import io.scalecube.security.acl.DefaultAccessControl;
+import io.scalecube.security.api.Authenticator;
+import io.scalecube.security.jwt.DefaultJwtAuthenticator;
 import reactor.test.StepVerifier;
 
 class AccessControlTest {
@@ -34,7 +33,8 @@ class AccessControlTest {
     key = KeyGenerator.getInstance("HmacSHA256").generateKey();
 
     Authenticator authenticator =
-        new DefaultJwtAuthenticator(m -> "1".equals(m.get("kid")) ? Mono.just(key) : Mono.empty());
+        new DefaultJwtAuthenticator(JWT.require(Algorithm.HMAC256(key.getEncoded()))
+                .build());
 
     accessControl =
         DefaultAccessControl.builder()
@@ -52,7 +52,7 @@ class AccessControlTest {
   void shouldGrantAccess() throws NoSuchAlgorithmException {
 
     String token =
-        Jwts.builder().setHeaderParam("kid", "1").claim("roles", OWNER).signWith(key).compact();
+        JWT.create().withClaim("roles", OWNER).sign(Algorithm.HMAC256(key.getEncoded()));
 
     StepVerifier.create(accessControl.check(token, RESOURCE_CREATE))
         .assertNext(
@@ -66,10 +66,10 @@ class AccessControlTest {
   void shouldDenyAccess() throws NoSuchAlgorithmException {
 
     String token =
-        Jwts.builder().setHeaderParam("kid", "1").claim("roles", MEMBER).signWith(key).compact();
+         JWT.create().withClaim("roles", MEMBER).sign(Algorithm.HMAC256(key.getEncoded()));
 
     StepVerifier.create(accessControl.check(token, RESOURCE_DELETE))
-        .expectError(AccessControlException.class)
+        .expectError(AuthorizationException.class)
         .verify();
   }
 }

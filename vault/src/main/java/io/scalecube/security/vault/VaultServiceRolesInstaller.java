@@ -131,7 +131,8 @@ public final class VaultServiceRolesInstaller {
    * @param serviceRolesSources serviceRolesSources
    * @return new instance with applied setting
    */
-  public VaultServiceRolesInstaller serviceRolesSources(
+  @SafeVarargs
+  public final VaultServiceRolesInstaller serviceRolesSources(
       Supplier<ServiceRoles>... serviceRolesSources) {
     final VaultServiceRolesInstaller c = copy();
     c.serviceRolesSources = Arrays.asList(serviceRolesSources);

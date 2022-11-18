@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.scalecube</groupId>
     <artifactId>scalecube-parent</artifactId>
-    <version>0.2.20</version>
+    <version>0.2.21-SNAPSHOT</version>
   </parent>
 
   <artifactId>scalecube-security-parent</artifactId>
@@ -17,32 +17,31 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/scalecube/packages</url>
+      <url>https://maven.pkg.github.com/Sm0keySa1m0n/</url>
       <snapshots>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
 
   <scm>
-    <url>https://github.com/scalecube/scalecube</url>
-    <connection>scm:git:https://github.com/scalecube/scalecube-security.git</connection>
-    <developerConnection>scm:git:https://github.com/scalecube/scalecube-security.git
+    <url>https://github.com/Sm0keySa1m0n/scalecube</url>
+    <connection>scm:git:https://github.com/Sm0keySa1m0n/scalecube-security.git</connection>
+    <developerConnection>scm:git:https://github.com/Sm0keySa1m0n/scalecube-security.git
     </developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <modules>
     <module>jwt</module>
-    <module>tokens</module>
     <module>vault</module>
   </modules>
 
   <properties>
-    <scalecube-config.version>0.4.18</scalecube-config.version>
-    <scalecube-commons.version>1.0.21</scalecube-commons.version>
+    <scalecube-config.version>0.4.19-SNAPSHOT</scalecube-config.version>
+    <scalecube-commons.version>1.0.22-SNAPSHOT</scalecube-commons.version>
 
-    <jjwt.version>0.11.2</jjwt.version>
+    <java-jwt.version>4.2.1</java-jwt.version>
     <reactor.version>2020.0.23</reactor.version>
     <jackson.version>2.13.3</jackson.version>
     <slf4j.version>1.7.36</slf4j.version>
@@ -53,7 +52,7 @@
     <vault-java-driver.version>5.1.0</vault-java-driver.version>
     <testcontainers.version>1.17.4</testcontainers.version>
 
-    <distributionManagement.url>https://maven.pkg.github.com/scalecube/scalecube-security
+    <distributionManagement.url>https://maven.pkg.github.com/Sm0keySa1m0n/scalecube-security
     </distributionManagement.url>
   </properties>
 
@@ -85,22 +84,12 @@
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-      <!-- Jsonwebtoken -->
-      <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt-api</artifactId>
-        <version>${jjwt.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt-impl</artifactId>
-        <version>${jjwt.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt-jackson</artifactId>
-        <version>${jjwt.version}</version>
-      </dependency>
+	  <!-- Auth0 JWT -->
+	  <dependency>
+	    <groupId>com.auth0</groupId>
+	    <artifactId>java-jwt</artifactId>
+	    <version>${java-jwt.version}</version>
+	  </dependency>
       <!-- Jackson -->
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
